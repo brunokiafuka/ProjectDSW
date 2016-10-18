@@ -14,6 +14,8 @@
 		$city = $_POST['city'];
 		$address = $_POST['address'];
 		
+
+		echo "country >> ". $country;
 		//verifying if data is set
 		if (empty($name)) {
 			$errorRegister = "enter user name";
@@ -38,16 +40,16 @@
 
 		if (!isset($errorRegister)) {
 			//inserting user
-			$stm = $conn->prepare("INSERT INTO customer(cust_username, cust_password, cust_name, cust_email, cust_country, cust_city, cust_address, newsletter) VALUES (:username, :pass, :name, :email, country, :city, :address, :news)");
+			$stm = $conn->prepare("INSERT INTO customer(cust_username, cust_password, cust_name, cust_email, cust_address, newsletter) VALUES (:usern, :passw, :nme, :em, :adss, :nws)");
 			//binding the values
-			$stm->bindValue(":username", $userName);
-			$stm->bindValue(":pass", $pass1);
-			$stm->bindValue(":name", $name);
-			$stm->bindValue(":email", $mail);
-			$stm->bindValue(":country", $country);
-			$stm->bindValue(":city", $city);
-			$stm->bindValue(":address", $address);
-			$stm->bindValue(":news", $newsl);
+			$stm->bindValue(":usern", $userName);
+			$stm->bindValue(":passw", $pass1);
+			$stm->bindValue(":nme", $name);
+			$stm->bindValue(":em", $mail);
+			/*$stm->bindValue(":cntry", $country);
+			$stm->bindValue(":cty", $city);*/
+			$stm->bindValue(":adss", $address);
+			$stm->bindValue(":nws", $newsl);
 			//verify if product is already in db
 			$verify=$conn->prepare("SELECT * FROM customer WHERE cust_username = ?");
 			$verify->execute(array($userName));
@@ -218,14 +220,14 @@
 					<input type="password" name="pass1" placeholder="password" value=<?php if(isset($passwordE)){ echo "'".$passwordE."'";} ?>></input>
 					<input type="password" name="pass2" placeholder="confirm password"></input>
 					<select name="country" placeholder="Country">
-						<option  value="" selected>Select your country</option>
-						<option value="ANG">ANGOLA</option>
-						<option value="ANG">CAMAROON</option>						
-						<option value="DRC">CONGO</option>
-						<option value="ZA">SOUTH AFRICA</option>
+						<option  value="">Select your country</option>
+						<option value="Angola">ANGOLA</option>
+						<option value="Camaroon">CAMAROON</option>						
+						<option value="Congo">CONGO</option>
+						<option value="South Africa">SOUTH AFRICA</option>
 					</select>
 					<select name="city" placeholder="city">
-						<option value="" selected>Select your city</option>
+						<option value="">Select your city</option>
 						<option value="LDA">LUANDA</option>
 						<option value="DH">DUALAH</option>						
 						<option value="KIN">KINSHASA</option>
