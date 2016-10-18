@@ -409,9 +409,15 @@
 
 /*Register*/
 
-input[type="checkbox"]{
-	font-size: 14px;
-	width: 25px;
+.register input[type="checkbox"]{
+	width: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;	
+
+}
+
+.error{
+	color: #e74c3c;
 }
 .register div{
 	background-color: #e67e22;
@@ -427,7 +433,7 @@ input[type="checkbox"]{
 	border: 1px solid #ddd;
 	margin: 0 auto;	
 	margin-bottom: 30px;
-	color: #ccc;
+	color: #2c3e50;
 }
 
 .register input{
@@ -446,7 +452,12 @@ input[type="checkbox"]{
  }
 
 
-
+.register select{
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 5px;
+	padding-left: 15px;
+}
 
  /*===SEARCH BY GENDER==*/
 .search-by{

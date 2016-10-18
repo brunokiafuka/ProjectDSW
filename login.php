@@ -1,3 +1,72 @@
+<?php
+	include ("php/server.php");
+	session_start();
+
+
+	//Register User
+	if (isset($_POST['btnRegister'])) {
+		$name = $_POST['name'];
+		$userName = $_POST['username'];
+		$mail = $_POST['email'];	$passwordE = $_POST['pass1'];
+		$pass1 = md5($_POST['pass1']);
+		$pass2 = md5($_POST['pass2']);
+		$country = $_POST['country'];
+		$city = $_POST['city'];
+		$address = $_POST['address'];
+		
+		//verifying if data is set
+		if (empty($name)) {
+			$errorRegister = "enter user name";
+		}else if (empty($userName)) {
+			$errorRegister = "enter user name";
+		}else if (empty($mail)) {
+			$errorRegister = "please enter a valid email";
+		}else if (empty($pass1)) {
+			$errorRegister = "enter a password";
+		}else if (empty($pass2)) {
+			$errorRegister = "please confirm your password";
+		}else if(empty($address)){
+			$errorRegister = "please enter your address";
+		}else if($pass1 != $pass2){
+			$errorRegister = "password doesn't match";
+		}else if (isset($_POST['news'])) {
+			$newsl = "Yes"; //Setting up newsletter to true if it is checked			
+		}else if (!isset($_POST['news'])) {
+			 //Setting up newsletter to false if it is not checked
+			$newsl = "No"; 						
+		}
+
+		if (!isset($errorRegister)) {
+			//inserting user
+			$stm = $conn->prepare("INSERT INTO customer(cust_username, cust_password, cust_name, cust_email, cust_country, cust_city, cust_address, newsletter) VALUES (:username, :pass, :name, :email, country, :city, :address, :news)");
+			//binding the values
+			$stm->bindValue(":username", $userName);
+			$stm->bindValue(":pass", $pass1);
+			$stm->bindValue(":name", $name);
+			$stm->bindValue(":email", $mail);
+			$stm->bindValue(":country", $country);
+			$stm->bindValue(":city", $city);
+			$stm->bindValue(":address", $address);
+			$stm->bindValue(":news", $newsl);
+			//verify if product is already in db
+			$verify=$conn->prepare("SELECT * FROM customer WHERE cust_username = ?");
+			$verify->execute(array($userName));
+			if ($verify->rowCount() == 0) {
+				# execute insert statement
+				$stm->execute();
+				echo "<script type='text/javascript'>alert('$userName your data has been successfuly saved');</script>";
+				
+			}
+			else{
+				$errorRegister =  $userName . " is already saved in data base";
+			}
+
+		}
+	}//end register
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -44,7 +113,7 @@
 					 	</li>
 
 					 	<li>
-							<a href="#" class="bluray" onclick="showBlu();" ><span>&#9662</span> Bluray Movies</a>						
+							<a href="#" class="bluray" onclick="showBlu();" ><span>&#9662;</span> Bluray Movies</a>						
 							<ul class="nav-content2 nav-con-style" style="display: none;">
 								<li><a href="#">Action</a></li>
 								<li><a href="#">Comedy</a></li>
@@ -137,23 +206,44 @@
 				</form>
 			</div>
 
+			<!--register-->
 			<div class="register">
 				<div>
 					<h2>Register Yourself</h2>
 				</div>
-				<form>
-					<input type="text" placeholder="user name"></input>
-					<input type="email" placeholder="email"></input>
-					<input type="password" placeholder="password"></input>
-					<input type="password" placeholder="confirm password"></input>
-					<input type="checkbox" name="vehicle" value="News" placeholder="Newsletter"></input>
-					<input type="submit" value="Register"></input>
-					<a href="#">Forgot your password?</a>
+				<form method="post">
+					<input type="text" name="name" placeholder="Name" value=<?php if(isset($name)){ echo "'".$name."'";} ?> ></input>
+					<input type="text" name="username" placeholder="userName" value=<?php if(isset($userName)){ echo "'".$userName."'";} ?> ></input>
+					<input type="email" name="email" placeholder="email@mymail.com" value=<?php if(isset($mail)){ echo "'".$mail."'";} ?>></input>
+					<input type="password" name="pass1" placeholder="password" value=<?php if(isset($passwordE)){ echo "'".$passwordE."'";} ?>></input>
+					<input type="password" name="pass2" placeholder="confirm password"></input>
+					<select name="country" placeholder="Country">
+						<option  value="" selected>Select your country</option>
+						<option value="ANG">ANGOLA</option>
+						<option value="ANG">CAMAROON</option>						
+						<option value="DRC">CONGO</option>
+						<option value="ZA">SOUTH AFRICA</option>
+					</select>
+					<select name="city" placeholder="city">
+						<option value="" selected>Select your city</option>
+						<option value="LDA">LUANDA</option>
+						<option value="DH">DUALAH</option>						
+						<option value="KIN">KINSHASA</option>
+						<option value="JHB">JOHANNESBURG</option>
+					</select>
+					<input type="text" name="address" placeholder="address" value=<?php if(isset($address)){ echo "'".$address."'";} ?>></input>					
+					<input type="checkbox" name="news" value="Yes" placeholder="Newsletter">Newsletter</input>					
+					<input type="submit" name="btnRegister" value="Register"></input>
+					<?php
+						if (isset($errorRegister)) {
+							echo "<span class='error'>" . $errorRegister . "</span>";						
+						}
+					?>	
 				</form>
 			</div>
 			
 		</section>
-		<!--End Products section new releases-->
+		<!--End Login and registraction section -->
 
 		
 
