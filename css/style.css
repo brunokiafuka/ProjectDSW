@@ -453,10 +453,11 @@
 
 
 .register select{
-	width: 100%;
+	width: 40%;
 	padding: 10px;
 	margin-bottom: 5px;
 	padding-left: 15px;
+	margin-right: 20px;
 }
 
  /*===SEARCH BY GENDER==*/

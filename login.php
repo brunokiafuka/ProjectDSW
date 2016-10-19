@@ -15,7 +15,7 @@
 		$address = $_POST['address'];
 		
 
-		echo "country >> ". $country;
+		
 		//verifying if data is set
 		if (empty($name)) {
 			$errorRegister = "enter user name";
@@ -40,14 +40,14 @@
 
 		if (!isset($errorRegister)) {
 			//inserting user
-			$stm = $conn->prepare("INSERT INTO customer(cust_username, cust_password, cust_name, cust_email, cust_address, newsletter) VALUES (:usern, :passw, :nme, :em, :adss, :nws)");
+			$stm = $conn->prepare("INSERT INTO customer(cust_username, cust_password, cust_name, cust_email, cust_country, cust_city, cust_address, newsletter) VALUES (:usern, :passw, :nme, :em, :cntry, :cty, :adss, :nws)");
 			//binding the values
 			$stm->bindValue(":usern", $userName);
 			$stm->bindValue(":passw", $pass1);
 			$stm->bindValue(":nme", $name);
 			$stm->bindValue(":em", $mail);
-			/*$stm->bindValue(":cntry", $country);
-			$stm->bindValue(":cty", $city);*/
+			$stm->bindValue(":cntry", $country);
+			$stm->bindValue(":cty", $city);
 			$stm->bindValue(":adss", $address);
 			$stm->bindValue(":nws", $newsl);
 			//verify if product is already in db
