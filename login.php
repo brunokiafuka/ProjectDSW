@@ -2,6 +2,44 @@
 	include ("php/server.php");
 	session_start();
 
+	//login user
+	if (isset($_POST['btnLogin'])) {
+
+		$user = $_POST['name'];
+		$pass = md5($_POST['password']);
+		
+		$stm=$conn->prepare("SELECT * FROM customer WHERE cust_username = :name OR cust_email = :mail  AND cust_password = :password");
+		$stm->bindValue(":name", $user);
+		$stm->bindValue(":password", $pass);
+		$stm->bindValue(":mail", $user);
+		$stm->execute();
+
+		$result = $stm->fetchAll(PDO::FETCH_ASSOC);
+		if (count($result) > 0) {
+			
+			
+			//getting user email
+			$stmt = $conn->prepare("SELECT cust_username FROM customer WHERE cust_email = :m ");
+			$stmt->bindValue(":m", $user);
+			$stmt->execute();
+			if ($stmt->rowCount()>0) {
+				while ($row=$stmt->fetch(PDO::FETCH_ASSOC)) {
+					$_SESSION['username'] =	$row['cust_username'];			
+					header("location: index.php");
+
+				}
+			}else{
+				$_SESSION['username'] = $user;
+				header("location: index.php");
+
+			}
+		
+		}
+		else {
+
+			$errorMsg = "user name or password worng!";
+		}
+	}//end login
 
 	//Register User
 	if (isset($_POST['btnRegister'])) {
@@ -56,6 +94,7 @@
 			if ($verify->rowCount() == 0) {
 				# execute insert statement
 				$stm->execute();
+				$_SESSION['username'] = $username;
 				echo "<script type='text/javascript'>alert('$userName your data has been successfuly saved');</script>";
 				
 			}
@@ -95,7 +134,7 @@
 	type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 	</script>
 	<!--End of Zopim Live Chat Script-->
-	
+
 	<script>
 		function openNav() {
 		    document.getElementById("mySidenav").style.width = "200px";
@@ -210,10 +249,15 @@
 				<div>
 					<h2>Are you a registered user?</h2>
 				</div>
-				<form>
-					<input type="text" placeholder="user name"></input>
-					<input type="password" placeholder="password"></input>
-					<input type="submit" value="Login"></input>
+				<form method="post">
+					<input type="text" name="name" placeholder="user name or mail" value=<?php if(isset($user)){ echo "'".$user."'";} ?> ></input>
+					<input type="password" name="password" placeholder="password"></input>
+					<?php
+						if (isset($errorMsg)) {
+							echo "<span class='error'>" . $errorMsg . "</span>";
+						}
+					?>
+					<input type="submit" name="btnLogin" value="Login"></input>
 					<a href="#">Forgot your password?</a>
 				</form>
 			</div>

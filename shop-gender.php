@@ -1,3 +1,7 @@
+<?php
+	session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -24,7 +28,7 @@
 	type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 	</script>
 	<!--End of Zopim Live Chat Script-->
-	
+
 	<script>
 		function openNav() {
 		    document.getElementById("mySidenav").style.width = "200px";
@@ -87,8 +91,19 @@
 					</form>				
 				</div>
 				<div class="user-opt-header">
-					<a href="login.php">Login / Sign Up</a> 
-					<a class="cart" href="#">My Cart <span> 0 Item - R0.00</span></a>				
+					<?php 
+							if (isset($_SESSION['username'])){ //check if user have already logged in
+								echo "<a style='color:gray; font-weight:bold;'><i class='fa fa-user' aria-hidden='true'></i> ".$_SESSION['username']."</a>";
+							}else{ // it will show the link if user not logged
+								echo "<a href='login.php'>Login / Sign Up</a>";
+							}
+					?>
+					<a class="cart" href="#">My Cart <span> 0 Item - R0.00</span></a>
+					<?php
+						if (isset($_SESSION['username'])){//logout user
+								echo "<a href='php/logout.php' style='margin-left: 10px;'>Log out</a>";
+						}
+					?>			
 				</div>
 			</div>
 		</header>
@@ -100,8 +115,19 @@
 					<a href="index.php"><b>Bunting</b>Movies <i class="fa fa-film" aria-hidden="true"></i></a>				
 			</div>
 			<div class="user-opt">
-				<a href="login.php">Login / Sign Up</a> <a class="cart" href="#">My Cart <span> 0 Item - R0.00</span></a>
-				
+				<?php 
+					if (isset($_SESSION['username'])){ //check if user have already logged in
+						echo "<a style='font-weight:bold;'><i class='fa fa-user' aria-hidden='true'></i> ".$_SESSION['username']."</a>";
+					}else{ // it will show the link if user not logged
+						echo "<a href='login.php'>Login / Sign Up</a>";
+					}
+				?>
+				<a class="cart" href="#">My Cart <span> 0 Item - R0.00</span></a>
+				<?php
+					if (isset($_SESSION['username'])){//logout user
+						echo "<a href='php/logout.php' style='margin-left: 10px;'>Log out</a>";
+					}
+				?>	
 			</div>
 		</section>
 		<!--End Logo-->
