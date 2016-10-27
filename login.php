@@ -19,20 +19,24 @@
 			
 			
 			//getting user email
-			$stmt = $conn->prepare("SELECT cust_username FROM customer WHERE cust_email = :m ");
+			$stmt = $conn->prepare("SELECT * FROM customer WHERE cust_name = :m OR cust_email = :mai ");
 			$stmt->bindValue(":m", $user);
+			$stmt->bindValue(":mai", $user);
 			$stmt->execute();
-			if ($stmt->rowCount()>0) {
+			#if ($stmt->rowCount()>0) {
 				while ($row=$stmt->fetch(PDO::FETCH_ASSOC)) {
-					$_SESSION['username'] =	$row['cust_username'];			
+					$_SESSION['username'] =	$row['cust_username'];
+					$_SESSION['userId'] = $row['cust_id'];	
+
+					echo $_SESSION['userId'];		
 					header("location: index.php");
 
 				}
-			}else{
-				$_SESSION['username'] = $user;
-				header("location: index.php");
+			#}else{
+				#$_SESSION['username'] = $user;
+				#header("location: index.php");
 
-			}
+			#}
 		
 		}
 		else {
@@ -114,6 +118,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">		
 		<meta name="robots" content="index, follow">
+		<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Baloo+Da" rel="stylesheet">
 		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">				
@@ -152,28 +157,27 @@
 				  	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>					
 					<h3>Menu</h3>					
 					<ul class="nav">
-						<li>
+						<li>								
 							<a href="#" class="dvd" onclick="showDvd();" ><span>&#9662;</span> DVD Movies</a>						
 							<ul class="nav-content nav-con-style" style="display: none;">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Comedy</a></li>
-								<li><a href="#">Drama</a></li>
-								<li><a href="#">Documentary</a></li>
-								<li><a href="#">Sci-Fic</a></li>
+								<li><a href="movie.php?genre=Action&movietype=DVD">Action</a></li>
+								<li><a href="movie.php?genre=Comedy&movietype=DVD">Comedy</a></li>
+								<li><a href="movie.php?genre=Drama&movietype=DVD">Drama</a></li>
+								<li><a href="movie.php?genre=Documentary&movietype=DVD">Documentary</a></li>
+								<li><a href="movie.php?genre=Sci-Fic&movietype=DVD">Sci-Fic</a></li>
 							</ul>					
 					 	</li>
 
 					 	<li>
 							<a href="#" class="bluray" onclick="showBlu();" ><span>&#9662;</span> Bluray Movies</a>						
 							<ul class="nav-content2 nav-con-style" style="display: none;">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Comedy</a></li>
-								<li><a href="#">Drama</a></li>
-								<li><a href="#">Documentary</a></li>
-								<li><a href="#">Sci-Fic</a></li>
+								<li><a href="movie.php?genre=Action&movietype=Bluray">Action</a></li>
+								<li><a href="movie.php?genre=Comedy&movietype=Bluray">Comedy</a></li>
+								<li><a href="movie.php?genre=Drama&movietype=Bluray">Drama</a></li>
+								<li><a href="movie.php?genre=Documentary&movietype=Bluray">Documentary</a></li>
+								<li><a href="movie.php?genre=Sci-Fic&movietype=Bluray">Sci-Fic</a></li>
 							</ul>					
 					 	</li>
-
 
 					 	<li><a href="#">Shop by Actor</a></li>
 					 	<li><a href="shop-gender.php">Shop by Genre</a></li>
@@ -191,8 +195,8 @@
 					</button>
 				</div>
 				<div class="search-container">			
-					<form method="post">
-						<input type="text" placeholder="search item in store..."></input>
+					<form method="get" action="search.php">
+						<input type="text" name="search" placeholder="search item in store..."></input>
 						<button type="submit" name="btnSearch" class="search-button"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
 					</form>				
 				</div>

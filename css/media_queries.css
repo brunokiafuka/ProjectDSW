@@ -170,9 +170,7 @@
     	padding-left: 0px;
 	}
 
-	.prod-show{
-		 margin-left: 100px;
-	}
+	
 	.btn-menu{
 		display: none;
 	}
@@ -188,10 +186,7 @@
   		border-right: 1px #e67e22 solid;	
 	}
 
-	.slide{
-		width: 84%;
-		margin-top: 75px;
-	}
+	
 
 	section{
 		margin-left: 200px;
@@ -254,6 +249,13 @@
     	width: 40%;
 		margin-top: 30px;		
     	float: right;
+	}
+
+	.slide{
+		width: 80%;
+	    margin-top: px;
+	    height: 250px;
+	    margin-left: 240px;
 	}
 }
 

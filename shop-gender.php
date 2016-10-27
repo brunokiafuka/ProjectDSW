@@ -8,6 +8,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">		
 		<meta name="robots" content="index, follow">
+		<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Baloo+Da" rel="stylesheet">
 		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">				
@@ -46,28 +47,27 @@
 				  	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>					
 					<h3>Menu</h3>					
 					<ul class="nav">
-						<li>
+						<li>								
 							<a href="#" class="dvd" onclick="showDvd();" ><span>&#9662;</span> DVD Movies</a>						
 							<ul class="nav-content nav-con-style" style="display: none;">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Comedy</a></li>
-								<li><a href="#">Drama</a></li>
-								<li><a href="#">Documentary</a></li>
-								<li><a href="#">Sci-Fic</a></li>
+								<li><a href="movie.php?genre=Action&movietype=DVD">Action</a></li>
+								<li><a href="movie.php?genre=Comedy&movietype=DVD">Comedy</a></li>
+								<li><a href="movie.php?genre=Drama&movietype=DVD">Drama</a></li>
+								<li><a href="movie.php?genre=Documentary&movietype=DVD">Documentary</a></li>
+								<li><a href="movie.php?genre=Sci-Fic&movietype=DVD">Sci-Fic</a></li>
 							</ul>					
 					 	</li>
 
 					 	<li>
 							<a href="#" class="bluray" onclick="showBlu();" ><span>&#9662;</span> Bluray Movies</a>						
 							<ul class="nav-content2 nav-con-style" style="display: none;">
-								<li><a href="#">Action</a></li>
-								<li><a href="#">Comedy</a></li>
-								<li><a href="#">Drama</a></li>
-								<li><a href="#">Documentary</a></li>
-								<li><a href="#">Sci-Fic</a></li>
+								<li><a href="movie.php?genre=Action&movietype=Bluray">Action</a></li>
+								<li><a href="movie.php?genre=Comedy&movietype=Bluray">Comedy</a></li>
+								<li><a href="movie.php?genre=Drama&movietype=Bluray">Drama</a></li>
+								<li><a href="movie.php?genre=Documentary&movietype=Bluray">Documentary</a></li>
+								<li><a href="movie.php?genre=Sci-Fic&movietype=Bluray">Sci-Fic</a></li>
 							</ul>					
 					 	</li>
-
 
 					 	<li><a href="#">Shop by Actor</a></li>
 					 	<li><a href="shop-gender.php">Shop by Genre</a></li>
@@ -85,8 +85,8 @@
 					</button>
 				</div>
 				<div class="search-container">			
-					<form method="post">
-						<input type="text" placeholder="search item in store..."></input>
+					<form method="get" action="search.php">
+						<input type="text" name="search" placeholder="search item in store..."></input>
 						<button type="submit" name="btnSearch" class="search-button"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
 					</form>				
 				</div>
@@ -98,7 +98,8 @@
 								echo "<a href='login.php'>Login / Sign Up</a>";
 							}
 					?>
-					<a class="cart" href="#">My Cart <span> 0 Item - R0.00</span></a>
+				<a class="cart" href="#">My Cart <span class="numItens"> 0 </span>Item - R<span class="totalCart">0.00</span></a>
+					
 					<?php
 						if (isset($_SESSION['username'])){//logout user
 								echo "<a href='php/logout.php' style='margin-left: 10px;'>Log out</a>";
@@ -122,7 +123,8 @@
 						echo "<a href='login.php'>Login / Sign Up</a>";
 					}
 				?>
-				<a class="cart" href="#">My Cart <span> 0 Item - R0.00</span></a>
+				<a class="cart" href="#">My Cart <span class="numItens"> 0 </span>Item - R<span class="totalCart">0.00</span></a>
+				
 				<?php
 					if (isset($_SESSION['username'])){//logout user
 						echo "<a href='php/logout.php' style='margin-left: 10px;'>Log out</a>";
@@ -134,9 +136,9 @@
 
 		<!--Slide Show-->
 		<section class="slide" >
-			<img class="mySlides" src="img/img2.jpg" id="img">
-			<img class="mySlides" src="img/img1.jpg" id="img">
-			<img  class="mySlides" src="img/img3.jpg" id="img">			
+			<img class="mySlides" src="img/cover.jpg" id="img">
+			<img class="mySlides" src="img/cover2.jpg" id="img">
+			<img  class="mySlides" src="img/cover3.jpg" id="img">			
 		</section>
 		<!--End Slide Show-->
 
@@ -162,46 +164,46 @@
 
 			<div class="movie-gender">
 				<div class="gender-icon">
-					<a href="#"><i class="fa fa-hand-lizard-o fa-3x" aria-hidden="true"></i></a>
+					<a href="genre.php?moviegenre=Action"><i class="fa fa-bombr fa-3x" aria-hidden="true"></i></a>
 				</div>
 				<div class="gender-descrip">
-					<a href="#">Action</a>
+					<a href="genre.php?moviegenre=Action">Action</a>
 				</div>
 			</div>	
 
 			<div class="movie-gender">
 				<div class="gender-icon">
-					<a href="#"><i class="fa fa-smile-o fa-3x" aria-hidden="true"></i></a>
+					<a href="genre.php?moviegenre=Comedy"><i class="fa fa-smile-o fa-3x" aria-hidden="true"></i></a>
 				</div>
 				<div class="gender-descrip">
-					<a href="#">Comedy</a>
+					<a href="genre.php?moviegenre=Comedy">Comedy</a>
 				</div>
 			</div>	
 
 			<div class="movie-gender">
 				<div class="gender-icon">
-					<a href="#"><i class="fa fa-frown-o fa-3x" aria-hidden="true"></i></a>
+					<a href="genre.php?moviegenre=Drama"><i class="fa fa-frown-o fa-3x" aria-hidden="true"></i></a>
 				</div>
 				<div class="gender-descrip">
-					<a href="#">Drama</a>
+					<a href="genre.php?moviegenre=Drama">Drama</a>
 				</div>
 			</div>	
 
 			<div class="movie-gender">
 				<div class="gender-icon">
-					<a href="#"><i class="fa fa-video-camera fa-3x" aria-hidden="true"></i></a>
+					<a href="genre.php?moviegenre=Documentary"><i class="fa fa-video-camera fa-3x" aria-hidden="true"></i></a>
 				</div>
 				<div class="gender-descrip">
-					<a href="#">Documentary</a>
+					<a href="genre.php?moviegenre=Documentary">Documentary</a>
 				</div>
 			</div>	
 
 			<div class="movie-gender">
 				<div class="gender-icon">
-					<a href="#"><i class="fa fa-flask fa-3x" aria-hidden="true"></i></a>
+					<a href="genre.php?moviegenre=Sci-fic"><i class="fa fa-flask fa-3x" aria-hidden="true"></i></a>
 				</div>
 				<div class="gender-descrip">
-					<a href="#">Sci-Fic</a>
+					<a href="genre.php?moviegenre=Sci-fi">Sci-Fic</a>
 				</div>
 			</div>	
 

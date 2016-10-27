@@ -29,7 +29,7 @@
 }
 .logo a{
 	font-size: 2em;
-	color: #fff;
+	color: #000;
 }
 .logo b{
 	color: #e67e22;
@@ -149,6 +149,11 @@
 	text-align: center;	
 	margin-top: 25px;
 	font-size: 14px;
+
+}
+
+.user-opt a {
+	color: #000;
 }
 .user-opt a:hover{
 	color: #e67e22;
@@ -166,7 +171,7 @@
 /*SLIDE*/
 .slide{
 	margin-top: 20px;
-	height: 100px;
+	height: 150px;
 	width: 100%;
 	overflow: hidden;
 }
@@ -501,3 +506,77 @@
 	color: #e67e22;
 }
 
+/*===PAGINATION*/
+.pagination{
+	padding: 10px;
+}
+.pagination p{
+	font-size: 12px;
+	color: #e67e22;	
+}
+
+
+.pagination_controls{
+	text-align: center;
+
+}
+
+.pagination_controls > a{
+	color: #e74c3c;
+    margin-left: 10px;
+    font-size: 14px;
+    font-family: sans-serif;
+}
+
+.pagination_controls > a:first-child{
+	margin-left: 0;
+}
+
+.pagination_controls > .pag-selected{
+	color: #000;
+}
+
+.pagination_controls > a > span{
+	border-radius: 4px;
+	background-color: #e67e22;
+	color: #fff;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+
+.button {
+    position: relative;
+    background-color: #e67e22;
+    border: none;    
+    color: #FFFFFF;
+    padding: 6px;
+    width: 100px;
+    text-align: center;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.button:after {
+    content: "";
+    background: #f1f1f1;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px !important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+}
+
+.button:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
+}

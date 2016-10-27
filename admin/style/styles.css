@@ -1,61 +1,36 @@
-.menubar{
-width: 1100px;
-margin-left: 200px;
-height: 50px;
+.search-container{
+    width: 80%;
 }
-
-.menubar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: white;
-}
-
-.menubar li {
-    float: left;
-}
-
-li a, .dropbtn {
+.search-container input[type=text]{
+    width: 80%;
+    padding: 5px 10px;
+    margin: 8px 0;
     display: inline-block;
-    color: gray;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-family: COMIC SANS MS;
-    font-size: 25px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    border-radius: 4px;
+}
+.search-container input[type=text]:focus{
+    border-color: #e67e22;
+}
+.search-button{
+    width: 40px;
+    height: 40px;   
+    color: #e67e22;
+    cursor: pointer;
+    border: none;
+    background-color: #fff;
+
 }
 
-.menubar li a:hover, .dropdown:hover .dropbtn {
-    background-color: white;
-    color: orange;
+.search-button:hover{
+    border-bottom: solid #e67e22 2px;
 }
-
-.menubar li.dropdown {
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-}
-
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
+ .main_wrapper{
+                width: 1000px;
+                height: auto;
+                margin: auto;
+             }
 
 
 section{
@@ -64,11 +39,12 @@ section{
 .logo-desktop{
 		display: inline-block;
 		text-align: justify;
-		width: 180px;
+		width: 200px;
 		height: 40px;		
 		float: left;
 		padding-top: 10px;
-		margin: 0 auto;		
+		margin: 0 auto;	
+        margin-top: 5%;	
 	}
 	.logo-desktop a{
 		font-size: 25px;
@@ -79,3 +55,46 @@ section{
 		color: #e67e22;
 		font-family: 'Baloo Da', cursive;
 	}
+
+    table {
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(odd){background-color: gray;}
+tr:nth-child(even){background-color: white;}
+
+#left{
+width: 795px;
+height: auto;
+float: right;
+
+}
+#right{
+position: fixed;
+width: 200px;
+height: 800px;
+float: left;
+background: white;
+border-right: 5px groove orange;
+
+}
+#right a{
+    text-decoration: none;
+    color: gray;
+    text-align: left;
+    font-size: 18px;
+    font-family: COMIC SANS MS;
+    margin: 6px;
+    padding: 6px;
+    display: block;
+}
+#right a:hover{
+ text-decoration: underline;
+ font-weight: bolder;
+ color: orange;   
+}
