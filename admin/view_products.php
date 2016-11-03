@@ -6,7 +6,18 @@ echo "<script>window.open('index.php?not_admin=You are not an Admin','_self')</s
 else
 {
 ?>
-<table width="795" align="center" bgcolor="gray">
+<div class="menubar"> 
+  <div class="search-container " style="margin-left:200px;">      
+        <form method="get" action="admin.php" >
+            <input type="text" name="search1" placeholder="search item in store..."></input>
+            <button type="submit" name="btnSearch1" class="search-button"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
+          </form>       
+  </div> 
+  <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+  <a href="php/admin-func.php" target="blank" style="margin-left: 60px; margin-bottom: 10px;">Generate PDF</a>
+  </div>
+<table width="795" align="center" bgcolor="gray" style="margin-left:100px;">
 	<tr align="center">
 		<td colspan="6"><h2>VIEW ALL PRODUCTS HERE</h2></td>
 
@@ -41,26 +52,22 @@ else
 	 $movie_genre = $result->movie_genre;
 	 $actor_id = $result->actor_id;
 
-	              $q2 = "SELECT actor_name FROM `actor` WHERE actor_id='$actor_id'";
+	              $q2 = "SELECT actor_name FROM actor WHERE actor_id='$actor_id'";
                   $stmt2 = $conn->prepare($q2);
                   $stmt2->execute();
-                  $count_movies= count($stmt2);
-                 if($count_movies==0){
-                   $actor_name = $result2->actor_name;
-                  }
-                  else
-                  {
-                     $actor_name ="No actor";
-                  }
-                  while( $result2 = $stmt2->fetch(PDO::FETCH_OBJ))
-		              {
-                   
-                  }
-	 $movie_year = $result->movie_year;
-	  $movie_image = $result->movie_image;
-	   $movie_type = $result->movie_type;
-	    $movie_stock = $result->movie_stock;
-	
+                  
+                  $result2 = $stmt2->fetch(PDO::FETCH_OBJ);
+                  $actor_name= $result2->actor_name;
+                 
+                      $movie_year = $result->movie_year;
+                      $movie_image = $result->movie_image;
+                      $movie_type = $result->movie_type;
+                 $movie_stock = $result->movie_stock;
+               
+                  
+          
+   
+	          
     ?>
     <tr align="center">
     	<td><?php echo $movie_id;?></td>

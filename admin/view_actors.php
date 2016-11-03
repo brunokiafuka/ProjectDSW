@@ -6,7 +6,16 @@ echo "<script>window.open('index.php?not_admin=You are not an Admin','_self')</s
 else
 {
 ?>
-<table width="795" align="center" bgcolor="gray">
+<div class="menubar">   
+    <div class="search-container" style="margin-left:200px;">          
+                <form method="get" action="admin.php"  >
+                        <input type="text" name="search3" placeholder="search item in store..."></input>
+                        <button type="submit" name="btnSearch3" class="search-button"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
+                    </form>             
+    </div>  
+
+    </div>
+<table width="795" align="center" bgcolor="gray" style="margin-left:100px;">
 	<tr align="center">
 		<td colspan="6"><h2>VIEW ALL ACTORS HERE</h2></td>
 

@@ -4,7 +4,7 @@
 
 	
 		# code...
-	 $_SESSION['userId'];
+	# $_SESSION['userId'];
 	
 	 
 ?>
@@ -26,7 +26,7 @@
 		<script type="text/javascript" src="js/script.js"></script>	
 		<script type="text/javascript" src="js/slide.js"></script>		
 	
-		<title>Home</title>
+		<title>BuntingMovies</title>
 	</head>
 
 	<!--Start of Zopim Live Chat Script-->
@@ -102,12 +102,12 @@
 				<div class="user-opt-header">
 					<?php 
 							if (isset($_SESSION['username'])){ //check if user have already logged in
-								echo "<a style='color:gray; font-weight:bold;'><i class='fa fa-user' aria-hidden='true'></i> ".$_SESSION['username']."</a>";
+								echo "<a href='user-profile.php?id=".$_SESSION['userId']."' style='color:gray; font-weight:bold;'><i class='fa fa-user' aria-hidden='true'></i> ".$_SESSION['username']."</a>";
 							}else{ // it will show the link if user not logged
 								echo "<a href='login.php'>Login / Sign Up</a>";
 							}
 					?>
-				<a class="cart" href="#">My Cart <span class="numItens"> 0 </span>Item - R<span class="totalCart">0.00</span></a>
+				<a class="cart" href="cart.php">My Cart <span class="numItens"> 0 </span>Item - R<span class="totalCart">0.00</span></a>
 					
 					<?php
 						if (isset($_SESSION['username'])){//logout user
@@ -132,7 +132,7 @@
 						echo "<a href='login.php'>Login / Sign Up</a>";
 					}
 				?>
-				<a class="cart" href="#">My Cart <span class="numItens"> 0 </span>Item - R<span class="totalCart">0.00</span></a>
+				<a class="cart" href="cart.php">My Cart <span class="numItens"> 0 </span>Item - R<span class="totalCart">0.00</span></a>
 				
 				<?php
 					if (isset($_SESSION['username'])){//logout user
@@ -173,55 +173,36 @@
 			</div>
 			<!--end Section Header-->
 
-			<!--Prod display-->
-			<div class="prod-show">
-				<div class="item">
-					<div class="item-img">
-						<img src="img/3444521.jpg">
-					</div>
-					<div class="item-desc">
-						<a class="item-title">The Legend of Tarzan</a>
-						<p>(2016)</p>
-					</div>
-					<a href="#">Price R<b class="price">550</b></a><br>
-					<button class="button">Add to cart</button>
-					<!--a><span class="tile" data-name="Farcy Criminal" data-price="550">Add to Cart</span></a-->
-				</div>	
-				<div class="item">
-					<div class="item-img">
-						<img src="img/3444521.jpg">
-					</div>
-					<div class="item-desc">
-						<a class="item-title">The Legend of Tarzan</a>
-						<p>(2016)</p>
-					</div>
-					<a href="#">Price R<b class="price">550</b></a><br>
-					<a><span class="tile" data-name="Farcy Criminal" data-price="550">Add to Cart</span></a>
-				</div>		
-				<div class="item">
-					<div class="item-img">
-						<img src="img/3444521.jpg">
-					</div>
-					<div class="item-desc">
-						<a class="item-title">The Legend of Tarzan</a>
-						<p>(2016)</p>
-					</div>
-					<a href="#">Price R<b class="price">550</b></a><br>
-					<a><span class="tile" data-name="Farcy Criminal" data-price="550">Add to Cart</span></a>
-				</div>	
-				<div class="item">
-					<div class="item-img">
-						<img src="img/3444521.jpg">
-					</div>
-					<div class="item-desc">
-						<a class="item-title">The Legend of Tarzan</a>
-						<p>(2016)</p>
-					</div>
-					<a href="#">Price R<b class="price">550</b></a><br>
-					<a><span class="tile" data-name="Farcy Criminal" data-price="550">Add to Cart</span></a>
-				</div>	
-							
-			</div>
+			<?php 
+				include ("php/server.php");
+
+				$stmt=$conn->prepare("SELECT * FROM movies WHERE movie_year >= '2015' ORDER BY RAND() LIMIT 4");
+				$stmt->execute();	
+
+				echo "<div class='prod-show'>";
+
+				while( $result = $stmt->fetch(PDO::FETCH_ASSOC)){
+					if ($result > 0) {
+						echo"
+							<div class='item'>
+								<form method='post'>
+								<div class='item-img'>
+								<img src='admin/movie_images/".$result['movie_image']."'>
+								</div>
+								<div class='item-desc'>
+									<a href='movie-description.php?id=".$result['movie_id']."' class='item-title'>(".$result['movie_title'].")</a>
+								<p>".$result['movie_year']."</p>
+								</div>
+								<a href='#'>Price R<b class='price'>".$result['movie_price']."</b></a><br>
+								<button data-id=".$result['movie_id']." class='button'>Add to cart</button>
+								</form>
+								</div>
+						";								
+					}
+				}
+				echo "</div>"
+
+			?>
 		</section>
 		<!--End Products section new releases-->
 
@@ -235,111 +216,37 @@
 			<!--end Section Header-->
 
 			<!--Prod display-->
-			<div class="prod-show">
-				<div class="item">
-					<div class="item-img">
-						<img src="img/3444521.jpg">
-					</div>
-					<div class="item-desc">
-						<a class="item-title">The Legend of Tarzan</a>
-						<p>(2016)</p>
-					</div>
-					<a href="#">Price R<b class="price">550</b></a><br>
-					<a><span class="tile" data-name="Farcy Criminal" data-price="550">Add to Cart</span></a>
-				</div>	
-				<div class="item">
-					<div class="item-img">
-						<img src="img/3444521.jpg">
-					</div>
-					<div class="item-desc">
-						<a class="item-title">The Legend of Tarzan</a>
-						<p>(2016)</p>
-					</div>
-					<a href="#">Price R<b class="price">550</b></a><br>
-					<a><span class="tile" data-name="Farcy Criminal" data-price="550">Add to Cart</span></a>
-				</div>		
-				<div class="item">
-					<div class="item-img">
-						<img src="img/3444521.jpg">
-					</div>
-					<div class="item-desc">
-						<a class="item-title">The Legend of Tarzan</a>
-						<p>(2016)</p>
-					</div>
-					<a href="#">Price R<b class="price">550</b></a><br>
-					<a><span class="tile" data-name="Farcy Criminal" data-price="550">Add to Cart</span></a>
-				</div>	
-				<div class="item">
-					<div class="item-img">
-						<img src="img/3444521.jpg">
-					</div>
-					<div class="item-desc">
-						<a class="item-title">The Legend of Tarzan</a>
-						<p>(2016)</p>
-					</div>
-					<a href="#">Price R<b class="price">550</b></a><br>
-					<a><span class="tile" data-name="Farcy Criminal" data-price="550">Add to Cart</span></a>
-				</div>				
-			</div>
-		</section>
-		<!--End Products section Top Sellers-->
+			<?php 
+				include ("php/server.php");
 
-		<!--Products Section Best Comedies-->
-		<section class="product">
-			<!--Section Header-->
-			<div class="prod-header">
-				<h3>Fresh comedy movies</h3>
-				<a href="#">see all <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
-			</div>
-			<!--end Section Header-->
+				$stmt=$conn->prepare("SELECT * FROM movies WHERE movie_year > '2010' ORDER BY RAND() LIMIT 4");
+				$stmt->execute();	
 
-			<!--Prod display-->
-			<div class="prod-show">
-				<div class="item">
-					<div class="item-img">
-						<img src="img/3444521.jpg">
-					</div>
-					<div class="item-desc">
-						<a class="item-title">The Legend of Tarzan</a>
-						<p>(2016)</p>
-					</div>
-					<a href="#">Price R<b class="price">550</b></a><br>
-					<a><span class="tile" data-name="Farcy Criminal" data-price="550">Add to Cart</span></a>
-				</div>	
-				<div class="item">
-					<div class="item-img">
-						<img src="img/3444521.jpg">
-					</div>
-					<div class="item-desc">
-						<a class="item-title">The Legend of Tarzan</a>
-						<p>(2016)</p>
-					</div>
-					<a href="#">Price R<b class="price">550</b></a><br>
-					<a><span class="tile" data-name="Farcy Criminal" data-price="550">Add to Cart</span></a>
-				</div>		
-				<div class="item">
-					<div class="item-img">
-						<img src="img/3444521.jpg">
-					</div>
-					<div class="item-desc">
-						<a class="item-title">The Legend of Tarzan</a>
-						<p>(2016)</p>
-					</div>
-					<a href="#">Price R<b class="price">550</b></a><br>
-					<a><span class="tile" data-name="Farcy Criminal" data-price="550">Add to Cart</span></a>
-				</div>	
-				<div class="item">
-					<div class="item-img">
-						<img src="img/3444521.jpg">
-					</div>
-					<div class="item-desc">
-						<a class="item-title">The Legend of Tarzan</a>
-						<p>(2016)</p>
-					</div>
-					<a href="#">Price R<b class="price">550</b></a><br>
-					<a><span class="tile" data-name="Farcy Criminal" data-price="550">Add to Cart</span></a>
-				</div>				
-			</div>
+				echo "<div class='prod-show'>";
+
+				while( $result = $stmt->fetch(PDO::FETCH_ASSOC)){
+					if ($result > 0) {
+						echo"
+							<div class='item'>
+								<form method='post'>
+								<div class='item-img'>
+								<img src='admin/movie_images/".$result['movie_image']."'>
+								</div>
+								<div class='item-desc'>
+									<a href='movie-description.php?id=".$result['movie_id']."' class='item-title'>(".$result['movie_title'].")</a>
+								<p>".$result['movie_year']."</p>
+								</div>
+								<a href='#'>Price R<b class='price'>".$result['movie_price']."</b></a><br>
+								<button data-id=".$result['movie_id']." class='button'>Add to cart</button>
+								</form>
+								</div>
+						";								
+					}
+				}
+				echo "</div>"
+
+			?>		
+		
 		</section>
 		<!--End Products section Best Comedies-->
 
@@ -352,53 +259,36 @@
 			</div>
 			<!--end Section Header-->
 
-			<!--Prod display-->
-			<div class="prod-show">
-				<div class="item">
-					<div class="item-img">
-						<img src="img/3444521.jpg">
-					</div>
-					<div class="item-desc">
-						<a class="item-title">The Legend of Tarzan</a>
-						<p>(2016)</p>
-					</div>
-					<a href="#">Price R<b class="price">550</b></a><br>
-					<a><span class="tile" data-name="Farcy Criminal" data-price="550">Add to Cart</span></a>
-				</div>	
-				<div class="item">
-					<div class="item-img">
-						<img src="img/3444521.jpg">
-					</div>
-					<div class="item-desc">
-						<a class="item-title">The Legend of Tarzan</a>
-						<p>(2016)</p>
-					</div>
-					<a href="#">Price R<b class="price">550</b></a><br>
-					<a><span class="tile" data-name="Farcy Criminal" data-price="550">Add to Cart</span></a>
-				</div>		
-				<div class="item">
-					<div class="item-img">
-						<img src="img/3444521.jpg">
-					</div>
-					<div class="item-desc">
-						<a class="item-title">The Legend of Tarzan</a>
-						<p>(2016)</p>
-					</div>
-					<a href="#">Price R<b class="price">550</b></a><br>
-					<a><span class="tile" data-name="Farcy Criminal" data-price="550">Add to Cart</span></a>
-				</div>	
-				<div class="item">
-					<div class="item-img">
-						<img src="img/3444521.jpg">
-					</div>
-					<div class="item-desc">
-						<a class="item-title">The Legend of Tarzan</a>
-						<p>(2016)</p>
-					</div>
-					<a href="#">Price R<b class="price">550</b></a><br>
-					<a><span class="tile" data-name="Farcy Criminal" data-price="550">Add to Cart</span></a>
-				</div>				
-			</div>
+			<?php 
+				include ("php/server.php");
+
+				$stmt=$conn->prepare("SELECT * FROM movies WHERE movie_type ='Bluray' ORDER BY RAND() LIMIT 4");
+				$stmt->execute();	
+
+				echo "<div class='prod-show'>";
+
+				while( $result = $stmt->fetch(PDO::FETCH_ASSOC)){
+					if ($result > 0) {
+						echo"
+							<div class='item'>
+								<form method='post'>
+								<div class='item-img'>
+								<img src='admin/movie_images/".$result['movie_image']."'>
+								</div>
+								<div class='item-desc'>
+									<a href='movie-description.php?id=".$result['movie_id']."' class='item-title'>(".$result['movie_title'].")</a>
+								<p>".$result['movie_year']."</p>
+								</div>
+								<a href='#'>Price R<b class='price'>".$result['movie_price']."</b></a><br>
+								<button data-id=".$result['movie_id']." class='button'>Add to cart</button>
+								</form>
+								</div>
+						";								
+					}
+				}
+				echo "</div>"
+
+			?>
 		</section>
 		<!--End Products section Bluray-->
 
@@ -409,6 +299,15 @@
 			</div>
 			<div>
 				<p>Copyright &copy; 2016 - BuntingMovies Powered by <a class="eits" href="#">EIT Solutions Inc.</a></p>									
+			</div>
+			<div class="social" id="contact">
+				<ul>
+					<li><a href="http://facebook.com"><i class="fa fa-facebook fa-2x" aria-hidden="true"></i></a></li>
+					<li><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></li>
+					<li><i class="fa fa-google-plus fa-2x" aria-hidden="true"></i></li>
+					<li><i class="fa fa-whatsapp fa-2x" aria-hidden="true"></i></li>
+					<li><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i></li>
+				</ul>
 			</div>
 		</footer>
 	</body>	

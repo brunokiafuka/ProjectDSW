@@ -23,17 +23,17 @@ else
 			
 
 	<div class="menubar">	
-	<div class="search-container">			
-				<form method="get" action="admin.php" >
+	<div class="search-container" style="margin-left:200px;">			
+				<form  action="admin.php" method="get">
 						<input type="text" name="search" placeholder="search item in store..."></input>
 						<button type="submit" name="btnSearch" class="search-button"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
 					</form>				
-				</div>	
+	</div>	
 
 	</div>
 	
 
-<form action="admin.php?view_movies" method="post" enctype="multipart/form-data">
+<form action="admin.php?insert_movie" method="post" enctype="multipart/form-data" style="margin-left:100px;">
 		<table align="center" width="795" border="2">
 			<tr align="center">
 			   <td colspan="8"><h2 style=" text-align: center;">Insert new Movies here</h2></td>
@@ -154,7 +154,7 @@ else
 		if($stmt)
 		{
 			echo "<script>alert('Product has been inserted')</script>";
-			echo "<script>window.open('admin.php?insert_movie','_self')</script>";
+			echo "<script>window.open('admin.php?view_movies','_self')</script>";
 		}
 	}
 

@@ -7,6 +7,7 @@ echo "<script>window.open('index.php?not_admin=You are not an Admin','_self')</s
 }
 else
 {
+	
 if(isset($_GET['edit_pro']))
 {
 $movie_id= $_GET['edit_pro'];
@@ -51,20 +52,9 @@ $stmt = $conn->prepare($q3);
 </head>
 <body>
 
-			
-
-	<div class="menubar">	
-	<div class="search-container">			
-				<form method="get" action="admin.php" >
-						<input type="text" name="search" placeholder="search item in store..."></input>
-						<button type="submit" name="btnSearch" class="search-button"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
-					</form>				
-				</div>	
-
-	</div>
 	
 
-<form action="" method="post" enctype="multipart/form-data">
+<form action="" method="post" enctype="multipart/form-data" style="margin-left:100px;">
 		<table align="center" width="795" border="2">
 			<tr align="center">
 			   <td colspan="8"><h2 style=" text-align: center;">Update Movies here</h2></td>

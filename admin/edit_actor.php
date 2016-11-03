@@ -37,11 +37,12 @@ $stmt = $conn->prepare($q3);
 
 </head>
 <body>
-<form action="" method="post" enctype="multipart/form-data" style="padding:80px;">
+
+<form action="" method="post" enctype="multipart/form-data" style="margin-left:100px;">
 
 <table align="center" width="795" border="2">
 			<tr align="center">
-			   <td colspan="8"><h2 style=" text-align: center;">Insert New Actors here</h2></td>
+			   <td colspan="8"><h2 style=" text-align: center;">Update Actors here</h2></td>
 			</tr>
 
 			<tr>
@@ -62,7 +63,7 @@ $stmt = $conn->prepare($q3);
 			</tr>
 
 <tr align="center">
-			    <td colspan="7"><input type="submit" name="add_actor" value="Add Actor Now" /></td>
+			    <td colspan="7"><input type="submit" name="add_actor" value="Update Actor Now" /></td>
 </tr>
 </table>
 </form>

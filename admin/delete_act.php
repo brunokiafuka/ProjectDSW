@@ -1,6 +1,7 @@
 <?php 
 session_start();
 include ("php/server.php");
+
 if(!isset($_SESSION['username']))
 {
 echo "<script>window.open('index.php?not_admin=You are not an Admin','_self')</script>";
@@ -23,4 +24,4 @@ if(isset($_GET['delete_act']))
 
 
 ?>
-<?php }?>
+<?php } ?>

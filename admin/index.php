@@ -13,10 +13,21 @@
 
 		$result = $stm->fetchAll(PDO::FETCH_ASSOC);
 		if (count($result) > 0) {
-
-			
 			$_SESSION['username'] = $user;
-			echo "<script>window.open('admin.php?logged_in=You have successfully Logged in','_self')</script>";					
+                  for ($i = 0; $i < count($result); $i++) {
+                  $cat_id=  $result[$i]['emp_cat'] ;
+                  if($cat_id=='1')
+                  {
+                        echo "<script>window.open('admin.php?logged_in=You have successfully Logged in','_self')</script>";
+                  }
+                  else
+                  	
+			$errorMsg = "employee";
+                    
+                  } 
+			
+			
+								
 		}
 		else {
 

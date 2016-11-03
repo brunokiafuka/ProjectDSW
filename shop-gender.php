@@ -17,7 +17,7 @@
 		<link rel="stylesheet" type="text/css" href="css/media_queries.css">			
 		<script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
 		<script type="text/javascript" src="js/script.js"></script>		
-		<title>Home</title>
+		<title>BuntingMovies</title>
 	</head>
 
 	<!--Start of Zopim Live Chat Script-->
@@ -98,7 +98,7 @@
 								echo "<a href='login.php'>Login / Sign Up</a>";
 							}
 					?>
-				<a class="cart" href="#">My Cart <span class="numItens"> 0 </span>Item - R<span class="totalCart">0.00</span></a>
+				<a class="cart" href="cart.php">My Cart <span class="numItens"> 0 </span>Item - R<span class="totalCart">0.00</span></a>
 					
 					<?php
 						if (isset($_SESSION['username'])){//logout user
@@ -123,7 +123,7 @@
 						echo "<a href='login.php'>Login / Sign Up</a>";
 					}
 				?>
-				<a class="cart" href="#">My Cart <span class="numItens"> 0 </span>Item - R<span class="totalCart">0.00</span></a>
+				<a class="cart" href="cart.php">My Cart <span class="numItens"> 0 </span>Item - R<span class="totalCart">0.00</span></a>
 				
 				<?php
 					if (isset($_SESSION['username'])){//logout user
@@ -164,7 +164,7 @@
 
 			<div class="movie-gender">
 				<div class="gender-icon">
-					<a href="genre.php?moviegenre=Action"><i class="fa fa-bombr fa-3x" aria-hidden="true"></i></a>
+					<a href="genre.php?moviegenre=Action"><i class="fa fa-bomb fa-3x" aria-hidden="true"></i></a>
 				</div>
 				<div class="gender-descrip">
 					<a href="genre.php?moviegenre=Action">Action</a>
@@ -216,6 +216,15 @@
 			</div>
 			<div>
 				<p>Copyright &copy; 2016 - BuntingMovies Powered by <a class="eits" href="#">EIT Solutions Inc.</a></p>									
+			</div>
+			<div class="social" id="contact">
+				<ul>
+					<li><a href="http://facebook.com"><i class="fa fa-facebook fa-2x" aria-hidden="true"></i></a></li>
+					<li><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></li>
+					<li><i class="fa fa-google-plus fa-2x" aria-hidden="true"></i></li>
+					<li><i class="fa fa-whatsapp fa-2x" aria-hidden="true"></i></li>
+					<li><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i></li>
+				</ul>
 			</div>
 		</footer>
 	</body>	

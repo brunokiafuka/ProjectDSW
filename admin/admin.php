@@ -31,6 +31,10 @@ else
 		<a href="admin.php?view_movies">View All Movies</a>
 		<a href="admin.php?insert_actor">Insert New Actors</a>
 		<a href="admin.php?view_actors">View All Actors</a>
+		<a href="admin.php?insert_employe">Insert New Employees</a>
+		<a href="admin.php?insert_employe_cat">Insert Employees Categories</a>
+		<a href="admin.php?view_employes_cat">View All Employees Categories</a>
+		<a href="admin.php?view_employes">View All Employees</a>
 		<a href="admin.php?view_customers">View Customers</a>
 	    <a href="admin.php?view_orders">View Orders</a>
 		<a href="admin.php?view_payments">View Payements</a>
@@ -65,10 +69,73 @@ else
              {
                  include("edit_actor.php");
              }
+             if(isset($_GET['insert_employe']))
+             {
+                 include("insert_employe.php");
+             }
+              if(isset($_GET['insert_employe_cat']))
+             {
+                 include("insert_employe_cat.php");
+             }
+             if(isset($_GET['view_employes_cat']))
+             {
+                 include("view_employe_cat.php");
+             }
+             if(isset($_GET['view_employes']))
+             {
+                 include("view_employe.php");
+             }
+             if(isset($_GET['edit_emp']))
+             {
+                 include("edit_emp.php");
+             }
               if(isset($_GET['view_customers']))
              {
                  include("view_customers.php");
              }
+             if(isset($_GET['search'])){
+            if(isset($_GET['btnSearch']))
+            {
+	         include("result.php");
+            }
+            }       
+            if(isset($_GET['search1'])){
+            if(isset($_GET['btnSearch1']))
+            {
+	        include("view_products_result.php");
+            }
+            }
+            if(isset($_GET['search2'])){
+            if(isset($_GET['btnSearch2']))
+            {
+	        include("actor_result.php");
+            }
+            }
+            if(isset($_GET['search3'])){
+            if(isset($_GET['btnSearch3']))
+            {
+	        include("view_actors_result.php");
+            }
+            }
+            if(isset($_GET['search4'])){
+            if(isset($_GET['btnSearch4']))
+            {
+	        include("emp_result.php");
+            }
+            }
+             if(isset($_GET['search5'])){
+            if(isset($_GET['btnSearch5']))
+            {
+	        include("view_emp_result.php");
+            }
+            }
+             if(isset($_GET['search6'])){
+            if(isset($_GET['btnSearch6']))
+            {
+	        include("view_cust_result.php");
+            }
+            }
+
 
 			?>
 

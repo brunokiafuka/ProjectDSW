@@ -8,48 +8,31 @@
 		$user = $_POST['name'];
 		$pass = md5($_POST['password']);
 		
-		$stm=$conn->prepare("SELECT * FROM customer WHERE cust_username = :name OR cust_email = :mail  AND cust_password = :password");
+		$stm=$conn->prepare("SELECT * FROM customer WHERE cust_username = :name OR cust_email = :mail  AND cust_password = :password LIMIT 1");
 		$stm->bindValue(":name", $user);
 		$stm->bindValue(":password", $pass);
 		$stm->bindValue(":mail", $user);
 		$stm->execute();
 
-		$result = $stm->fetchAll(PDO::FETCH_ASSOC);
-		if (count($result) > 0) {
-			
-			
-			//getting user email
-			$stmt = $conn->prepare("SELECT * FROM customer WHERE cust_name = :m OR cust_email = :mai ");
-			$stmt->bindValue(":m", $user);
-			$stmt->bindValue(":mai", $user);
-			$stmt->execute();
-			#if ($stmt->rowCount()>0) {
-				while ($row=$stmt->fetch(PDO::FETCH_ASSOC)) {
-					$_SESSION['username'] =	$row['cust_username'];
-					$_SESSION['userId'] = $row['cust_id'];	
-
-					echo $_SESSION['userId'];		
-					header("location: index.php");
-
-				}
-			#}else{
-				#$_SESSION['username'] = $user;
-				#header("location: index.php");
-
-			#}
+		$row=$stm->fetch(PDO::FETCH_ASSOC);
+       	 if($stm->rowCount() > 0){
+       	 	if ($pass == $row['cust_password'] && !empty($row['conf_code'])) {
+       	 		$_SESSION['username'] =	$row['cust_username'];
+				$_SESSION['userId'] = $row['cust_id'];	
+				header("location: index.php");
+       	 	}else{
+				$errorMsg = "user name or password worng!";
+       	 	}
+       	 }#end if	
 		
-		}
-		else {
-
-			$errorMsg = "user name or password worng!";
-		}
 	}//end login
+
 
 	//Register User
 	if (isset($_POST['btnRegister'])) {
 		$name = $_POST['name'];
 		$userName = $_POST['username'];
-		$mail = $_POST['email'];	$passwordE = $_POST['pass1'];
+		$email = $_POST['email'];	$passwordE = $_POST['pass1'];
 		$pass1 = md5($_POST['pass1']);
 		$pass2 = md5($_POST['pass2']);
 		$country = $_POST['country'];
@@ -63,7 +46,7 @@
 			$errorRegister = "enter user name";
 		}else if (empty($userName)) {
 			$errorRegister = "enter user name";
-		}else if (empty($mail)) {
+		}else if (empty($email)) {
 			$errorRegister = "please enter a valid email";
 		}else if (empty($pass1)) {
 			$errorRegister = "enter a password";
@@ -87,7 +70,7 @@
 			$stm->bindValue(":usern", $userName);
 			$stm->bindValue(":passw", $pass1);
 			$stm->bindValue(":nme", $name);
-			$stm->bindValue(":em", $mail);
+			$stm->bindValue(":em", $email);
 			$stm->bindValue(":cntry", $country);
 			$stm->bindValue(":cty", $city);
 			$stm->bindValue(":adss", $address);
@@ -100,6 +83,49 @@
 				$stm->execute();
 				$_SESSION['username'] = $username;
 				echo "<script type='text/javascript'>alert('$userName your data has been successfuly saved');</script>";
+
+				##===>MAIL
+				require 'php/phpmailer/PHPMailerAutoload.php';
+
+				$mail = new PHPMailer;
+
+				//$mail->SMTPDebug = 3;                               // Enable verbose debug output
+
+				$conf_code = md5(uniqid(rand()));
+				$mail->isSMTP();                                      // Set mailer to use SMTP
+				$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+				$mail->SMTPAuth = true;                               // Enable SMTP authentication
+				$mail->Username = 'buntingmoviesinfo@gmail.com';                 // SMTP username
+				$mail->Password = 'buntingmovies12';                           // SMTP password
+				$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+				$mail->Port = 587;                                    // TCP port to connect to
+
+				$mail->setFrom('buntingmoviesinfo@gmail.com', 'BuntingMovies');
+				$mail->addAddress($email, $name);     // Add a recipient
+				$mail->addAddress($email);               // Name is optional
+				
+				
+				$stm=$conn->prepare("SELECT cust_id FROM customer WHERE cust_username = ? LIMIT 1");				
+				$stm->execute(array($userName));
+				while( $result = $stm->fetch(PDO::FETCH_ASSOC)){
+						if ($result > 0){
+							$id = $result['cust_id'];
+						}
+					}
+
+
+
+				$mail->Subject = 'Account Activation';
+				$mail->Body    = 'Hi!<br> You have successfully registered, please click <a href="http://localhost/ProjectDSW/confirm-mail.php?code='.$conf_code.'&id='.$id.'">here</a> confirm your mail';
+				$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+				if(!$mail->send()) {
+				    echo 'Message could not be sent.';
+				    echo 'Mailer Error: ' . $mail->ErrorInfo;
+				} else {
+				    echo 'Message has been sent';
+				    header("location: confirm-mail.php");
+				}
 				
 			}
 			else{
@@ -127,7 +153,7 @@
 		<link rel="stylesheet" type="text/css" href="css/media_queries.css">
 		<script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
 		<script type="text/javascript" src="js/script.js"></script>		
-		<title>Register</title>
+		<title>BuntingMovies</title>
 	</head>
 
 	<!--Start of Zopim Live Chat Script-->
@@ -181,7 +207,7 @@
 
 					 	<li><a href="#">Shop by Actor</a></li>
 					 	<li><a href="shop-gender.php">Shop by Genre</a></li>
-					 	<li><a href="#">Shop by Studio</a></li>
+					 	<li><a href="cart.php">Shop by Studio</a></li>
 				  </ul>
 			</div> 
 		<header id="main" class="header">
@@ -202,7 +228,7 @@
 				</div>
 				<div class="user-opt-header">
 					<a href="login.php">Login / Sign Up</a> 
-					<a class="cart" href="#">My Cart <span> 0 Item - R0.00</span></a>				
+					<a class="cart" href="cart.php">My Cart <span> 0 Item - R0.00</span></a>				
 				</div>
 			</div>
 		</header>
@@ -314,6 +340,15 @@
 			</div>
 			<div>
 				<p>Copyright &copy; 2016 - BuntingMovies Powered by <a class="eits" href="#">EIT Solutions Inc.</a></p>									
+			</div>
+			<div class="social" id="contact">
+				<ul>
+					<li><a href="http://facebook.com"><i class="fa fa-facebook fa-2x" aria-hidden="true"></i></a></li>
+					<li><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></li>
+					<li><i class="fa fa-google-plus fa-2x" aria-hidden="true"></i></li>
+					<li><i class="fa fa-whatsapp fa-2x" aria-hidden="true"></i></li>
+					<li><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i></li>
+				</ul>
 			</div>
 		</footer>
 	</body>	

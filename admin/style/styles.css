@@ -76,8 +76,8 @@ float: right;
 }
 #right{
 position: fixed;
-width: 200px;
-height: 800px;
+width: 240px;
+height: 1000px;
 float: left;
 background: white;
 border-right: 5px groove orange;

@@ -6,7 +6,16 @@ echo "<script>window.open('index.php?not_admin=You are not an Admin','_self')</s
 else
 {
 ?>
-<form action="" method="post" enctype="multipart/form-data" style="padding:80px;">
+<div class="menubar">	
+	<div class="search-container" style="margin-left:200px;">			
+				<form method="get" action="admin.php" >
+						<input type="text" name="search2" placeholder="search item in store..."></input>
+						<button type="submit" name="btnSearch2" class="search-button"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
+					</form>				
+	</div>	
+
+	</div>
+<form action="" method="post" enctype="multipart/form-data" style=" margin-left:100px;" >
 
 <table align="center" width="795" border="2">
 			<tr align="center">

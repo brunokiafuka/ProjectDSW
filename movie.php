@@ -18,7 +18,7 @@
 		<link rel="stylesheet" type="text/css" href="css/media_queries.css">			
 		<script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
 		<script type="text/javascript" src="js/script.js"></script>		
-		<title>Home</title>
+		<title>BuntingMovies</title>
 	</head>
 
 	<!--Start of Zopim Live Chat Script-->
@@ -100,7 +100,7 @@
 							}
 					?>
 				
-					<a class="cart" href="#">My Cart <span class="numItens"> 0 </span>Item - <span class="totalCart">R0.00</span></a>
+					<a class="cart" href="cart.php">My Cart <span class="numItens"> 0 </span>Item - <span class="totalCart">R0.00</span></a>
 					<?php
 						if (isset($_SESSION['username'])){//logout user
 								echo "<a href='php/logout.php' style='margin-left: 10px;'>Log out</a>";
@@ -124,7 +124,7 @@
 						echo "<a href='login.php'>Login / Sign Up</a>";
 					}
 				?>
-				<a class="cart" href="#">My Cart <span class="numItens"> 0 </span>Item - R<span class="totalCart">0.00</span></a>
+				<a class="cart" href="cart.php">My Cart <span class="numItens"> 0 </span>Item - R<span class="totalCart">0.00</span></a>
 				<?php
 					if (isset($_SESSION['username'])){//logout user
 						echo "<a href='php/logout.php' style='margin-left: 10px;'>Log out</a>";
@@ -171,7 +171,7 @@
 						$num_rows = $sql->fetch(PDO::FETCH_NUM);
 						$num_rows = $num_rows[0];						
 						//This is the number of results per page
-						$page_row = 2;
+						$page_row = 10;
 						//this will tells us the page number of our last page
 						$last = ceil($num_rows/$page_row);
 						//make sure last never less than 1
@@ -310,7 +310,7 @@
 								<img src='admin/movie_images/".$result['movie_image']."'>
 								</div>
 								<div class='item-desc'>
-									<a class='item-title'>(".$result['movie_title'].")</a>
+									<a href='movie-description.php?id=".$result['movie_id']."' class='item-title'>(".$result['movie_title'].")</a>
 								<p>".$result['movie_year']."</p>
 								</div>
 								<a href='#'>Price R<b class='price'>".$result['movie_price']."</b></a><br>
@@ -345,6 +345,15 @@
 			</div>
 			<div>
 				<p>Copyright &copy; 2016 - BuntingMovies Powered by <a class="eits" href="#">EIT Solutions Inc.</a></p>									
+			</div>
+			<div class="social" id="contact">
+				<ul>
+					<li><a href="http://facebook.com"><i class="fa fa-facebook fa-2x" aria-hidden="true"></i></a></li>
+					<li><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></li>
+					<li><i class="fa fa-google-plus fa-2x" aria-hidden="true"></i></li>
+					<li><i class="fa fa-whatsapp fa-2x" aria-hidden="true"></i></li>
+					<li><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i></li>
+				</ul>
 			</div>
 		</footer>
 	</body>	
