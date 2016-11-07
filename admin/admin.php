@@ -24,22 +24,34 @@ else
 		</div>
 	</section>
  <div class="main_wrapper">
- 	<div id="right">
-		
-		<h2 style="text-align:center;">MANAGE CONTENT</h2>
-		<a href="admin.php?insert_movie">Insert New Movies</a>
-		<a href="admin.php?view_movies">View All Movies</a>
-		<a href="admin.php?insert_actor">Insert New Actors</a>
-		<a href="admin.php?view_actors">View All Actors</a>
-		<a href="admin.php?insert_employe">Insert New Employees</a>
-		<a href="admin.php?insert_employe_cat">Insert Employees Categories</a>
-		<a href="admin.php?view_employes_cat">View All Employees Categories</a>
-		<a href="admin.php?view_employes">View All Employees</a>
-		<a href="admin.php?view_customers">View Customers</a>
-	    <a href="admin.php?view_orders">View Orders</a>
-		<a href="admin.php?view_payments">View Payements</a>
-		<a href="logout.php">Admin Logout</a>
-	</div>	
+ <?php
+    if ($_SESSION['emp_Cat'] == 1) {
+       echo ' <div id="right">        
+            <h2 style="text-align:center;">MANAGE CONTENT</h2>
+            <a href="admin.php?insert_movie">Insert New Movies</a>
+            <a href="admin.php?view_movies">View All Movies</a>
+            <a href="admin.php?insert_actor">Insert New Actors</a>
+            <a href="admin.php?view_actors">View All Actors</a>
+            <a href="admin.php?insert_employe">Insert New Employees</a>
+            <a href="admin.php?insert_employe_cat">Insert Employees Categories</a>
+            <a href="admin.php?view_employes_cat">View All Employees Categories</a>
+            <a href="admin.php?view_employes">View All Employees</a>
+            <a href="admin.php?view_customers">View Customers</a>
+            <a href="admin.php?view_orders">View Orders</a>
+            <a href="admin.php?view_payments">View Payements</a>
+            <a href="logout.php">Admin Logout</a>
+        </div>';
+    }else if ($_SESSION['emp_Cat'] == 2) {
+        echo ' <div id="right">        
+            <h2 style="text-align:center;">MANAGE CONTENT</h2>
+            <a href="admin.php?view_movies">View All Movies</a>
+            <a href="logout.php">Logout</a>
+        </div>';
+       
+    }
+
+ ?>
+ 	
 		
 		<div id="left">
 		<h2 style="color:red; text-align:center;"><?php echo @$_GET['logged_in'];?></h2>
@@ -134,6 +146,11 @@ else
             {
 	        include("view_cust_result.php");
             }
+            }
+
+            if (isset($_GET['view_orders'])) {
+                # code...
+                include("view_orders.php");
             }
 
 

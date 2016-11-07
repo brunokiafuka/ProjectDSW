@@ -43,7 +43,7 @@ if(isset($_GET['btnSearch3']))
 {
 $search_query= $_GET['search3'];
 
-$q3=" SELECT * from actor where actor_name like '%$search_query%' " ;
+$q3=" SELECT * from actor where actor_name = '%$search_query%' " ;
 $stmt = $conn->prepare($q3);
  $stmt->execute();
 

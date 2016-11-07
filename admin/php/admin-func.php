@@ -52,11 +52,12 @@ $html .= '<table width="100%">
 		    	<td style="font-size:12px;">'.$result2['actor_name'].'</td>
 		    	<td style="font-size:12px;">'.$result['movie_year'].'</td>
 		    	<td style="font-size:12px;">'.$result['movie_type'].'</td>
-		    	<td style="font-size:12px;">'.$result['movie_stock'].'</td>';          
+		    	<td style="font-size:12px;">'.$result['movie_stock'].'</td>
+		    	</tr>';          
         $count++;       
     }
 
-    $html .= '</tr>
+    $html .= '
     	</table>
     	<hr><h3>Movies in store '.$count.'</h3>';
 

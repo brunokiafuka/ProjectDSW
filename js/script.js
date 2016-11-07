@@ -145,7 +145,7 @@ window.onload =(function () {
         method: "POST",
         data: {confirmOrder:1, userid: userId},
         success: function(data){
-            alert("Code "+data);
+            alert("Your order have being place, an email was sent to you");
         }
 
       });

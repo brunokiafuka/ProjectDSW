@@ -206,7 +206,53 @@
 		while ($row=$sql->fetch(PDO::FETCH_ASSOC)) {
 			$inserDetails =$conn->prepare("INSERT INTO `order_details`(`order_id`, `movie_id`, `price`, `quantity`, `total`, `movie_title`, `movie_img`) VALUES (?, ?, ?, ?, ?, ?, ?)");
 			$inserDetails->execute(array($orderID, $row['movie_id'], $row['price'], $row['qty'], $row['total_amt'],$row['movie_title'], $row['movie_img']));	
-		}			
+		}
+
+
+		##===>MAIL
+
+				$stm=$conn->prepare("SELECT * FROM customer WHERE cust_id = ? LIMIT 1");				
+				$stm->execute(array($userID));
+				while( $result = $stm->fetch(PDO::FETCH_ASSOC)){
+						if ($result > 0){
+							$email = $result['cust_email'];
+							$name = $result['cust_name'];
+						}
+					}
+				require 'php/phpmailer/PHPMailerAutoload.php';
+
+				$mail = new PHPMailer;
+
+				//$mail->SMTPDebug = 3;                               // Enable verbose debug output
+
+				$conf_code = md5(uniqid(rand()));
+				$mail->isSMTP();                                      // Set mailer to use SMTP
+				$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+				$mail->SMTPAuth = true;                               // Enable SMTP authentication
+				$mail->Username = 'buntingmoviesinfo@gmail.com';                 // SMTP username
+				$mail->Password = 'buntingmovies12';                           // SMTP password
+				$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+				$mail->Port = 587;                                    // TCP port to connect to
+
+				$mail->setFrom('buntingmoviesinfo@gmail.com', 'BuntingMovies');
+				$mail->addAddress($email, $name);     // Add a recipient
+				$mail->addAddress($email);             // Name is optional	
+
+				$mail->Subject = 'Order Confirmation';
+				$mail->Body    = 'Hi!
+				<br>
+				<br>
+				Order Ref: '.$orderID.'
+				<br> You have successfully placed your order, you will be receiving your products soon.<br>The total of your order is: R'.$orderTotal.' ';
+				$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+				if(!$mail->send()) {
+				    echo 'Message could not be sent.';
+				    echo 'Mailer Error: ' . $mail->ErrorInfo;
+				} else {
+				    echo 'Message has been sent';
+				    header("location: confirm-mail.php");
+				}			
 	}
 ?>
 

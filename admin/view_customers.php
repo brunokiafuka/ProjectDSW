@@ -15,6 +15,8 @@ else
     </div>  
 
     </div>
+  <a href="customerReport.php" target="blank" style="margin-left: 60px; margin-bottom: 10px;">Generate PDF Report</a>
+
 <table width="795" align="center" bgcolor="gray" style="margin-left:100px;">
 	<tr align="center">
 		<td colspan="6"><h2>VIEW ALL CUSTOMERS HERE</h2></td>

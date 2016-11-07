@@ -6,31 +6,27 @@
 		$user = $_POST['name'];
 		$pass = $_POST['password'];
 
+		echo $user;
+
 		$stm=$conn->prepare("SELECT * FROM employee WHERE emp_name = :name AND emp_password = :password");
 		$stm->bindValue(":name", $user);
 		$stm->bindValue(":password", $pass);
 		$stm->execute();
-
-		$result = $stm->fetchAll(PDO::FETCH_ASSOC);
-		if (count($result) > 0) {
+		$count = count($stm);
+		if ($count > 0) {
 			$_SESSION['username'] = $user;
-                  for ($i = 0; $i < count($result); $i++) {
-                  $cat_id=  $result[$i]['emp_cat'] ;
-                  if($cat_id=='1')
-                  {
-                        echo "<script>window.open('admin.php?logged_in=You have successfully Logged in','_self')</script>";
-                  }
-                  else
-                  	
-			$errorMsg = "employee";
-                    
-                  } 
-			
-			
-								
-		}
-		else {
+           # $_SESSION['emp_Cat'] = 1; 
 
+           $stmt=$conn->prepare("SELECT emp_cat FROM employee WHERE emp_name = ?");
+          # $stmt=bindValue(":name", $user);
+           $stmt->execute(array($user));
+
+           $count_cats= count($stmt);   
+  		   while( $result = $stmt->fetch(PDO::FETCH_OBJ)){
+  		   		$_SESSION['emp_Cat'] = $result->emp_cat;
+  		   }
+            echo "<script>window.open('admin.php?logged_in=You have successfully Logged in','_self')</script>";
+        }else{
 			$errorMsg = "user name or password worng!";
 		}
 	}
