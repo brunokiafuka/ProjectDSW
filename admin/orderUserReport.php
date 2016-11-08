@@ -12,7 +12,7 @@
 	}
 
 
-
+$order = $_GET['id'];
 $html = '<h2 style="margin-bottom:0; color:#e67e22;">USER ORDER REPORT</h2>
 		<hr style="margin-bottom:10px; margin-top:0;">';
 
@@ -26,9 +26,9 @@ $html .= '<table width="100%">
 		    	<th style="text-align:left;">Status</th>
    			</tr>';
 
-  $q1=" select * from `order` where order_id='26'";
+  $q1=" select * from `order` where order_id=?";
      $stmt = $conn->prepare($q1);
-     $stmt->execute();
+     $stmt->execute(array($order));
  
       $count_cats= count($stmt);
    	$total = 0;

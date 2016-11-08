@@ -153,6 +153,12 @@ else
                 include("view_orders.php");
             }
 
+            if(isset($_GET['searchOrder'])){
+                if(isset($_GET['btnSearchOrder']))
+                {
+                include("customer_order.php");
+                }
+            }
 
 			?>
 

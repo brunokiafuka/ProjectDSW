@@ -21,7 +21,7 @@
 				$_SESSION['userId'] = $row['cust_id'];	
 				header("location: index.php");
        	 	}else{
-				$errorMsg = "user name or password worng!";
+				$errorMsg = "user name or password wrong!";
        	 	}
        	 }#end if	
 		

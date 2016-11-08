@@ -35,6 +35,7 @@ else
     	<th>Stock</th>
     	<th>Edit</th>
     	<th>Delete</th>
+      <th>View Sales</th>
     </tr>
     <?php
      include ("php/server.php");
@@ -80,7 +81,8 @@ else
     	<td><?php echo $movie_type;?></td>
     	<td><?php echo $movie_stock;?></td>
     	<td><a href="admin.php?edit_pro=<?php echo $movie_id;?>">Update</a></td>
-    	<td><a href="delete_movie.php?delete_pro=<?php echo $movie_id;?>">Delete</a></td>
+      <td><a href="delete_movie.php?delete_pro=<?php echo $movie_id;?>">Delete</a></td>
+    	<td><a href="sales_movie.php?pro=<?php echo $movie_id;?>" target="blank">Sales</a></td>
     <?php } ?>
 
     </tr>

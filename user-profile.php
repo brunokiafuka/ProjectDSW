@@ -1,5 +1,24 @@
 <?php 
+	include ("php/server.php");
 session_start();
+
+	if (isset($_GET['id'])) {
+		$userId = $_GET['id'];
+		# code...
+		$stmt = $conn->prepare("SELECT * FROM customer WHERE cust_id = ? LIMIT 1");
+		$stmt->execute(array($userId));
+		while( $result = $stmt->fetch(PDO::FETCH_ASSOC)){
+			if ($result > 0){
+				$name = $result['cust_name'];
+				$userName = $result['cust_username'];
+				$mail = $result['cust_email'];
+				$passwordE = $result['cust_password'];
+				$address = $result['cust_address'];
+			    $country = $result['cust_country'];
+				$city = $result['cust_city'];
+			}
+		}
+	}
 ?>
 
 <!DOCTYPE html>
@@ -175,14 +194,14 @@ session_start();
 					<input type="password" name="pass1" placeholder="password" value=<?php if(isset($passwordE)){ echo "'".$passwordE."'";} ?>></input>
 					<input type="password" name="pass2" placeholder="confirm password"></input>
 					<select name="country" placeholder="Country">
-						<option  value="">Select your country</option>
+						<option  value=""><?php if(isset($country)){ echo "".$country."";} ?></option>
 						<option value="Angola">ANGOLA</option>
 						<option value="Camaroon">CAMAROON</option>						
 						<option value="Congo">CONGO</option>
 						<option value="South Africa">SOUTH AFRICA</option>
 					</select>
 					<select name="city" placeholder="city">
-						<option value="">Select your city</option>
+						<option value=""><?php if(isset($city)){ echo "".$city."";} ?></option>
 						<option value="LDA">LUANDA</option>
 						<option value="DH">DUALAH</option>						
 						<option value="KIN">KINSHASA</option>
@@ -190,7 +209,8 @@ session_start();
 					</select>
 					<input type="text" name="address" placeholder="address" value=<?php if(isset($address)){ echo "'".$address."'";} ?>></input>					
 					<input type="checkbox" name="news" value="Yes" placeholder="Newsletter">Newsletter</input>					
-					<input type="submit" name="btnRegister" value="Register"></input>
+					<input type="submit" name="btnUpdate" value="Update Information"></input>
+					<input type="submit" name="btnDelet" value="Delete Account"></input>
 					<?php
 						if (isset($errorRegister)) {
 							echo "<span class='error'>" . $errorRegister . "</span>";						

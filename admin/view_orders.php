@@ -9,9 +9,9 @@ else
 <div class="menubar"> 
   <div class="search-container " style="margin-left:200px;">      
         <form method="get" action="admin.php" >
-            <input type="text" name="searchOrder" placeholder="enter order ID or Customer ID"></input>
+            <input type="text" name="searchOrder" placeholder="enter order ID"></input>
             <button type="submit" name="btnSearchOrder" class="search-button"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
-          </form>       
+         </form>       
   </div> 
   <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
